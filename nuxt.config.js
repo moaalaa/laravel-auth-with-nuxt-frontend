@@ -1,4 +1,4 @@
-import pkg from './package'
+import pkg from './package';
 
 export default {
   mode: 'universal',
@@ -14,7 +14,8 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css' },
     ]
   },
 
@@ -39,7 +40,25 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+      '@nuxtjs/axios',
+      '@nuxtjs/auth'
   ],
+  
+  axios: {
+    baseURL: 'http://127.0.0.1:8000/api',
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'login', method: 'post', propertyName: 'data.token' },
+          user: { url: 'me', method: 'get', propertyName: 'data' },
+          logout: {},
+        },
+      },
+    },
+  },
 
   /*
   ** Build configuration
