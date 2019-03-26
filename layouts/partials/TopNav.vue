@@ -11,9 +11,10 @@
       <span aria-hidden="true"></span>
     </a>
   </div>
-
+  
   <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
+    
+    <div class="navbar-start" v-if="loggedIn">
       <a class="navbar-item">
         Home
       </a>
@@ -24,36 +25,37 @@
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          More
+          {{ user.name }}
         </a>
 
         <div class="navbar-dropdown">
+          
           <a class="navbar-item">
-            About
+            {{ user.email }}
           </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
+          
           <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
+
+          <a class="navbar-item" @click="logout">
+            logout
           </a>
+        
         </div>
       </div>
     </div>
 
-    <div class="navbar-end">
+    <div class="navbar-end" v-else>
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
+          
+          <nuxt-link :to="{name: 'auth-register'}"  class="button is-primary">
             <strong>Sign up</strong>
-          </a>
+          </nuxt-link>
+
           <nuxt-link :to="{name: 'auth-login'}" class="button is-light">
             Log in
           </nuxt-link>
+
         </div>
       </div>
     </div>
@@ -63,6 +65,10 @@
 
 <script>
 export default {
-
+  methods: {
+    logout() {
+      this.$auth.logout();  
+    }
+  },
 }
 </script>

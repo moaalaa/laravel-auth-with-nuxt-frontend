@@ -22,7 +22,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#ff0' },
 
   /*
   ** Global CSS
@@ -30,10 +30,17 @@ export default {
   css: [
   ],
 
+  router: {
+    middleware: ['clearValidationMiddleware']
+  },
+
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/mixins/user',
+    '@/plugins/mixins/validation',
+    '@/plugins/axios',
   ],
 
   /*
@@ -54,10 +61,14 @@ export default {
         endpoints: {
           login: { url: 'login', method: 'post', propertyName: 'data.token' },
           user: { url: 'me', method: 'get', propertyName: 'data' },
-          logout: {},
+          logout: { url: 'logout', method: 'post' },
         },
       },
     },
+    redirect: {
+      login: '/auth/login',
+      home: '/',
+    }
   },
 
   /*
